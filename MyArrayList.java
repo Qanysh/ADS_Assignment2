@@ -19,5 +19,12 @@ public abstract class MyArrayList<T> implements List<T> {
                 newCapacity = minCapacity;
             elements = Arrays.copyOf(elements, newCapacity);
         }
+            
+     public boolean add(T element) {
+        ensureCapacity(size + 1);
+        elements[size++] = element;
+        return true;
+    }
+
     }
 }
