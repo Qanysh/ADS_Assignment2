@@ -81,4 +81,25 @@ public class MyLinkedList<E> implements MyList<E> {
         size--;
         return (E) current.element;
     }
+    
+    @Override
+    public int size() {
+        return size;
+    }
+    
+        private class MyIterator implements Iterator<E> {
+        MyNode cursor = head;
+
+
+        public boolean hasNext() {
+            return cursor != null;
+        }
+
+
+        public E next() {
+            E data = cursor.data;
+            cursor = cursor.next;
+            return data;
+        }
+
 }
