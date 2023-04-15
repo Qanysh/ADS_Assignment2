@@ -55,7 +55,7 @@ public class MyLinkedList<E> implements MyList<E> {
         }
         return (E) current.element;
     }
-    
+
     @Override
     public E remove(int index) {
         if (index < 0 || index >= size)
@@ -81,13 +81,17 @@ public class MyLinkedList<E> implements MyList<E> {
         size--;
         return (E) current.element;
     }
-    
+
     @Override
     public int size() {
         return size;
     }
-    
-        private class MyIterator implements Iterator<E> {
+    @Override
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator<E> {
         MyNode cursor = head;
 
 
@@ -101,5 +105,5 @@ public class MyLinkedList<E> implements MyList<E> {
             cursor = cursor.next;
             return data;
         }
-
+    }
 }
