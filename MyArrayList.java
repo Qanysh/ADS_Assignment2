@@ -1,7 +1,7 @@
 import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
 
-public abstract class MyArrayList<T> implements List<T> {
+public abstract class MyArrayList<E> implements MyList<E> {
 
     private Object[] elements;
     private int size;
@@ -19,12 +19,51 @@ public abstract class MyArrayList<T> implements List<T> {
                 newCapacity = minCapacity;
             elements = Arrays.copyOf(elements, newCapacity);
         }
-            
-     public boolean add(T element) {
-        ensureCapacity(size + 1);
-        elements[size++] = element;
-        return true;
     }
 
+    public void add(E element) {
+        ensureCapacity(size + 1);
+        elements[size++] = element;
+    }
+
+    @SuppressWarnings("unchecked")
+    public E get(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+        return (E) elements[index];
+    }
+
+    public E remove(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+        @SuppressWarnings("unchecked")
+        E oldValue = (E) elements[index];
+        int numMoved = size - index - 1;
+        if (numMoved > 0)
+            System.arraycopy(elements, index + 1, elements, index, numMoved);
+        elements[--size] = null;
+        return oldValue;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator<E> {
+        private int cursor;
+
+        @Override
+        public boolean hasNext() {
+            return cursor < size();
+        }
+
+        @Override
+        public E next() {
+            return get(cursor++);
+        }
     }
 }
