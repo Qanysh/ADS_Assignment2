@@ -55,4 +55,30 @@ public class MyLinkedList<E> implements MyList<E> {
         }
         return (E) current.element;
     }
+    
+    @Override
+    public E remove(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+        MyNode current;
+        if (index < size / 2) {
+            current = head;
+            for (int i = 0; i < index; i++)
+                current = current.next;
+        } else {
+            current = tail;
+            for (int i = size - 1; i > index; i--)
+                current = current.prev;
+        }
+        if (current.prev != null)
+            current.prev.next = current.next;
+        else
+            head = current.next;
+        if (current.next != null)
+            current.next.prev = current.prev;
+        else
+            tail = current.prev;
+        size--;
+        return (E) current.element;
+    }
 }
