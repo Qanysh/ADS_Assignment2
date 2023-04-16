@@ -1,8 +1,13 @@
 public interface MyList<E> extends Iterable<E> {
-    void add(E item);
-    E get(int index);
-
-    E remove(int index);
-
     int size();
+    boolean contains(Object o);
+    void add (E item, int index);
+    void add(E item);
+    boolean remove(E item);
+    E remove(int index);
+    void clear();
+    E get(int index);
+    int indexOf(Object o);
+    int lastIndexOf(Object o);
+    void sort();
 }
